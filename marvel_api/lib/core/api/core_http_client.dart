@@ -4,7 +4,7 @@ import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../environment_confi.dart';
+import '../../environment_config.dart';
 import '../error/exceptions.dart';
 
 abstract class IHttpClient {
