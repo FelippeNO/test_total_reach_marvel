@@ -18,12 +18,7 @@ class CharacterViewController extends ChangeNotifier {
   ValueNotifier<CharacterViewState> get state => _state;
   CharacterEntity get character => _character;
 
-  Future<void> initialize(int characterId) async {
-    _state.value = CharacterViewState.loading;
-    _getCharacter(characterId);
-    await Future.delayed(const Duration(seconds: 2));
-    _state.value = CharacterViewState.success;
-  }
+  Future<void> initialize(int characterId) async => _getCharacter(characterId);
 
   _getCharacter(int characterId) async {
     _state.value = CharacterViewState.loading;

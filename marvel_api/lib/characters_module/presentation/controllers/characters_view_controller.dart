@@ -18,9 +18,7 @@ class CharactersViewController extends ChangeNotifier {
   ValueNotifier<CharactersViewState> get state => _state;
   List<CharacterSnapshotEntity> get characters => _characters;
 
-  Future<void> initialize() async {
-    _getCharacters();
-  }
+  Future<void> initialize() async => _getCharacters();
 
   _getCharacters() async {
     _state.value = CharactersViewState.loading;
