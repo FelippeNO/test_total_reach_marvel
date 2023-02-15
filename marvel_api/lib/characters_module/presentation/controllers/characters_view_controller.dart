@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:marvel_api/characters_module/domain/entities/character_snapshot_entity.dart';
 
+import '../../../core/utils/my_controller.dart';
 import '../../domain/services/get_characters_service.dart';
 
 enum CharactersViewState { loading, success, error }
 
-class CharactersViewController extends ChangeNotifier {
+class CharactersViewController extends MyController {
   final GetCharactersService _getCharactersService;
 
   CharactersViewController(
@@ -21,17 +22,15 @@ class CharactersViewController extends ChangeNotifier {
   Future<void> initialize() async => _getCharacters();
 
   _getCharacters() async {
-    _state.value = CharactersViewState.loading;
-    _state.notifyListeners();
+    setValueNotifier(_state, CharactersViewState.loading);
     final request = await _getCharactersService.call();
-    request.fold((l) {
-      _state.value = CharactersViewState.error;
-      _state.notifyListeners();
-    }, (r) {
-      _characters.clear();
-      _characters.addAll(r);
-      _state.value = CharactersViewState.success;
-      _state.notifyListeners();
-    });
+    request.fold((l) => setValueNotifier(_state, CharactersViewState.error), (r) => _handlingCharacters(r));
+  }
+
+  void _handlingCharacters(r) {
+    _characters
+      ..clear()
+      ..addAll(r);
+    setValueNotifier(_state, CharactersViewState.success);
   }
 }
