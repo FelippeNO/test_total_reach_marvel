@@ -6,5 +6,5 @@ import '../entities/character_snapshot_entity.dart';
 
 abstract class ICharactersRepository {
   Future<Either<CoreFailure, List<CharacterSnapshotEntity>>> getCharacters();
-  Future<Either<CoreFailure, CharacterEntity>> getCharacterById({required String characterId});
+  Future<Either<CoreFailure, CharacterEntity>> getCharacterById({required int characterId});
 }

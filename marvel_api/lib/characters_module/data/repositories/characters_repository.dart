@@ -17,9 +17,15 @@ class CharactersRepository implements ICharactersRepository {
   CharactersRepository(this._gateway);
 
   @override
-  Future<Either<CoreFailure, CharacterEntity>> getCharacterById({required String characterId}) {
-    // TODO: implement getCharacters
-    throw UnimplementedError();
+  Future<Either<CoreFailure, CharacterEntity>> getCharacterById({required int characterId}) async {
+    try {
+      final CharacterEntity result = await _gateway.getCharacterById(characterId: characterId);
+      return Right(result);
+    } on GetCharacterByIdException {
+      return Left(GetCharacterByIdFailure());
+    } on Exception {
+      return Left(GetCharacterByIdFailure());
+    }
   }
 
   @override
